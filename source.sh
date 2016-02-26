@@ -47,6 +47,7 @@ export ANDROID_API="$_ANDROID_API"
 # export CROSS_COMPILE="arm-linux-androideabi-"
 export ANDROID_DEV="$ANDROID_NDK_ROOT/platforms/$_ANDROID_API/$_ANDROID_ARCH/usr"
 export HOSTCC=gcc
+export PATH=$ANDROID_TOOLCHAIN/bin:$PATH
 
 VERBOSE=1
 if [ ! -z "$VERBOSE" ] && [ "$VERBOSE" != "0" ]; then
