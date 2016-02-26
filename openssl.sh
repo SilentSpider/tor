@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Source environment
+. ./source.sh
+
 VERSION="1.0.2f"
 VERIFYGPG=true
 
@@ -47,3 +50,11 @@ if $VERIFYGPG; then
 		exit 1
 	fi
 fi
+
+tar zxf openssl-${VERSION}.tar.gz -C $SRCDIR
+cd "${SRCDIR}/openssl-${VERSION}"
+
+./config shared no-ssl2 no-ssl3 no-comp no-hw --openssldir=`pwd`/../output/openssl
+make depend
+make all
+make install
