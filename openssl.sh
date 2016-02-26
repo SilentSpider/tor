@@ -1,12 +1,11 @@
 #!/bin/bash
 
-
 VERSION="1.0.2f"
 VERIFYGPG=true
 
 # Setup some initial working dirs
-
 REPOROOT=$(pwd)
+
 # Where we'll end up storing things in the end
 OUTPUTDIR="${REPOROOT}/dependencies"
 mkdir -p ${OUTPUTDIR}/include
@@ -14,9 +13,9 @@ mkdir -p ${OUTPUTDIR}/lib
 BUILDDIR="${REPOROOT}/build"
 
 # where we will keep our sources and build from.
-
 SRCDIR="${BUILDDIR}/src"
 mkdir -p $SRCDIR
+
 # where we will store intermediary builds
 INTERDIR="${BUILDDIR}/built"
 mkdir -p $INTERDIR
@@ -37,6 +36,7 @@ if $VERIFYGPG; then
 		curl -O http://www.openssl.org/source/openssl-${VERSION}.tar.gz.asc
 	fi
 	echo "Using openssl-${VERSION}.tar.gz.asc"
+	gpg --recv-keys D9C4D26D0E604491
 	if out=$(gpg --status-fd 1 --verify "openssl-${VERSION}.tar.gz.asc" "openssl-${VERSION}.tar.gz" 2>/dev/null) &&
 	echo "$out" | grep -qs "^\[GNUPG:\] VALIDSIG"; then
 		echo "$out" | egrep "GOODSIG|VALIDSIG"
