@@ -46,7 +46,7 @@ export CPPFLAGS="$CPPFLAGS --sysroot=$SYSROOT -Isrc/common -I../output/openssl/i
 sed -ie "s/tor_cv_can_use_curve25519_donna_c64=cross/tor_cv_can_use_curve25519_donna_c64=no/g" configure
 sed -ie "s/tor_cv_can_use_curve25519_donna_c64=yes/tor_cv_can_use_curve25519_donna_c64=no/g" configure
 
-./configure  --disable-threads --with-openssl-dir="$OUTPUT/openssl/" \
+./configure --with-openssl-dir="$OUTPUT/openssl/" \
 --with-libevent-dir="$OUTPUT/libevent" \
 --disable-asciidoc --disable-transparent \
 --host=arm-linux-androideabi --target=arm-linux-androideabi
