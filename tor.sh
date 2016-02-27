@@ -34,6 +34,8 @@ fi
 OUTPUT=`pwd`/output
 tar zxf tor-${VERSION}.tar.gz
 
+cd tor-${VERSION}
+
 export CFLAGS="$CFLAGS --sysroot=$SYSROOT -O2 -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2" \
 export CPPFLAGS="$CPPFLAGS --sysroot=$SYSROOT -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2"
 
