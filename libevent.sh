@@ -21,6 +21,9 @@ echo "Using libevent-${VERSION}.tar.gz"
 if $VERIFYGPG; then
 	if [ ! -e "${SRCDIR}/libevent-${VERSION}.tar.gz.asc" ]; then
 		#curl -LO https://github.com/downloads/libevent/libevent/libevent-${VERSION}.tar.gz.asc
+
+		wget http://www.citi.umich.edu/u/provos/pgp.key
+		gpg --import pgp.key
 		curl -LO https://sourceforge.net/projects/levent/files/libevent/libevent-2.0/libevent-${VERSION}.tar.gz.asc
 	fi
 	echo "Using libevent-${VERSION}.tar.gz.asc"
