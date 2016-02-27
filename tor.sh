@@ -39,3 +39,4 @@ fi
 
 OUTPUT=`pwd`/output
 tar zxf tor-${VERSION}.tar.gz
+
