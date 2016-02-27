@@ -36,6 +36,8 @@ tar zxf tor-${VERSION}.tar.gz
 
 cd tor-${VERSION}
 
+sed -i.old '1s;^;#include <sys/limits.h>\n;' src/ext/trunnel/trunnel.c
+
 export CFLAGS="$CFLAGS --sysroot=$SYSROOT -O2 -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2"
 export CPPFLAGS="$CPPFLAGS --sysroot=$SYSROOT -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2"
 
