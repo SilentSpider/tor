@@ -1,9 +1,8 @@
 #!/bin/bash
-#  Builds openssl 
 #
-###########################################################################
-#  Choose your openssl version and your currently-installed iOS SDK version:
+# Sourcing variables for all builds
 #
+
 ANDROID_NDK_ROOT="/oss/ndk"
 ANDROID_TOOLS="arm-linux-androideabi-gcc arm-linux-androideabi-ranlib arm-linux-androideabi-ld"
 _ANDROID_EABI="arm-linux-androideabi-4.9"
