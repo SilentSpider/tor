@@ -4,7 +4,7 @@
 . ./source.sh
 
 VERSION="2.0.22-stable"
-VERIFYGPG=true
+VERIFYGPG=false
 
 # Exit the script if an error happens
 set -e
@@ -22,8 +22,6 @@ if $VERIFYGPG; then
 	if [ ! -e "${SRCDIR}/libevent-${VERSION}.tar.gz.asc" ]; then
 		#curl -LO https://github.com/downloads/libevent/libevent/libevent-${VERSION}.tar.gz.asc
 
-		wget http://www.citi.umich.edu/u/provos/pgp.key
-		gpg --import pgp.key
 		curl -LO https://sourceforge.net/projects/levent/files/libevent/libevent-2.0/libevent-${VERSION}.tar.gz.asc
 	fi
 	echo "Using libevent-${VERSION}.tar.gz.asc"
@@ -41,3 +39,19 @@ fi
 tar zxf libevent-${VERSION}.tar.gz
 cd "libevent-${VERSION}"
 
+OUTPUT=`pwd`/../output
+export CFLAGS="$CFLAGS -I$OUTPUT/openssl/include -L$OUTPUT/openssl/lib -lssl -lcrypto"
+
+export CC=arm-linux-androideabi-gcc
+export CFLAGS="$CFLAGS --sysroot=$SYSROOT"
+export CPPFLAGS="$CPPFLAGS --sysroot=$SYSROOT"
+
+./configure --disable-shared --enable-static --disable-debug-mode \
+LDFLAGS="$LDFLAGS" \
+--host=arm-linux-androideabi --target=arm-linux-androideabi
+make -j4
+
+mkdir -p ../output/libevent
+mkdir ../output/libevent/include
+cp ./.libs/*  ../output/libevent
+cp -r include/event2 ../output/libevent/include
