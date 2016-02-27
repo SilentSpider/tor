@@ -33,3 +33,20 @@ fi
 
 OUTPUT=`pwd`/output
 tar zxf tor-${VERSION}.tar.gz
+
+export CFLAGS="$CFLAGS --sysroot=$SYSROOT -O2 -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2" \
+export CPPFLAGS="$CPPFLAGS --sysroot=$SYSROOT -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2"
+
+# sed -ie "s/tor_cv_can_use_curve25519_donna_c64=cross/tor_cv_can_use_curve25519_donna_c64=no/g" configure
+# sed -ie "s/tor_cv_can_use_curve25519_donna_c64=yes/tor_cv_can_use_curve25519_donna_c64=no/g" configure
+
+export PATH=/Applications/android-ndk-r10e/toolchains/arm-linux-androideabi-4.8/prebuilt/darwin-x86_64/bin:$PATH
+
+./configure  --disable-threads --with-openssl-dir="$OUTPUT/openssl/" \
+--with-libevent-dir="$OUTPUT/libevent" \
+--disable-asciidoc --disable-transparent \
+--host=arm-linux-androideabi --target=arm-linux-androideabi
+
+export LDFLAGS="$LDFLAGS -arch armv7 -lz -lcrypto -levent -lssl -L$OUTPUT/openssl/lib -L$OUTPUT/libevent"
+
+make -j4
