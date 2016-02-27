@@ -7,8 +7,6 @@ VERSION="0.2.7.6"
 VERIFYGPG=true
 TOR_DIST_URL="https://dist.torproject.org/"
 
-if false; then
-
 set -e
 
 if [ ! -e "tor-${VERSION}.tar.gz" ]; then
@@ -39,4 +37,3 @@ fi
 
 OUTPUT=`pwd`/output
 tar zxf tor-${VERSION}.tar.gz
-
