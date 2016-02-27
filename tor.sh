@@ -54,3 +54,5 @@ sed -ie "s/tor_cv_can_use_curve25519_donna_c64=yes/tor_cv_can_use_curve25519_don
 export LDFLAGS="$LDFLAGS -arch armv7 -lz -lcrypto -levent -lssl -L$OUTPUT/openssl/lib -L$OUTPUT/libevent"
 
 make -j4
+
+cp src/or/tor ../../built/
