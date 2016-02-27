@@ -4,7 +4,7 @@
 . ./source.sh
 
 VERSION="2.0.22-stable"
-VERIFYGPG=true
+VERIFYGPG=false
 
 # Exit the script if an error happens
 set -e
