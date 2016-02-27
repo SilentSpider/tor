@@ -16,3 +16,20 @@ if [ ! -e "tor-${VERSION}.tar.gz" ]; then
 fi
 echo "Using tor-${VERSION}.tar.gz"
 
+if $VERIFYGPG; then
+	if [ ! -e "tor-${VERSION}.tar.gz.asc" ]; then
+		curl -O ${TOR_DIST_URL}tor-${VERSION}.tar.gz.asc
+	fi
+	echo "Using tor-${VERSION}.tar.gz.asc"
+	if out=$(gpg --status-fd 1 --verify "tor-${VERSION}.tar.gz.asc" "tor-${VERSION}.tar.gz" 2>/dev/null) &&	echo "$out" | grep -qs "^\[GNUPG:\] VALIDSIG"; then
+		echo "$out" | egrep "GOODSIG|VALIDSIG"
+		echo "Verified GPG signature for source..."
+	else
+		echo "$out" >&2
+		echo "COULD NOT VERIFY PACKAGE SIGNATURE..."
+		exit 1
+	fi
+fi
+
+OUTPUT=`pwd`/output
+tar zxf tor-${VERSION}.tar.gz
