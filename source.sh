@@ -61,3 +61,22 @@ if [ ! -z "$VERBOSE" ] && [ "$VERBOSE" != "0" ]; then
   echo "CROSS_COMPILE: $CROSS_COMPILE"
   echo "ANDROID_DEV: $ANDROID_DEV"
 fi
+
+# Setup some initial working dirs
+REPOROOT=$(pwd)
+
+# Where we'll end up storing things in the end
+OUTPUTDIR="${REPOROOT}/dependencies"
+mkdir -p ${OUTPUTDIR}/include
+mkdir -p ${OUTPUTDIR}/lib
+BUILDDIR="${REPOROOT}/build"
+
+# where we will keep our sources and build from.
+SRCDIR="${BUILDDIR}/src"
+mkdir -p $SRCDIR
+
+# where we will store intermediary builds
+INTERDIR="${BUILDDIR}/built"
+mkdir -p $INTERDIR
+
+cd $SRCDIR
