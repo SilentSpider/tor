@@ -4,7 +4,7 @@
 . ./source.sh
 
 VERSION="2.0.22-stable"
-VERIFYGPG=false
+VERIFYGPG=true
 
 # Exit the script if an error happens
 set -e
@@ -12,7 +12,7 @@ set -e
 if [ ! -e "libevent-${VERSION}.tar.gz" ]; then
 	echo "Downloading libevent-${VERSION}.tar.gz"
 	#curl -LO https://github.com/downloads/libevent/libevent/libevent-${VERSION}.tar.gz
-	curl -LO https://sourceforge.net/projects/levent/files/libevent/libevent-2.0/libevent-${VERSION}.tar.gz
+    curl -LO https://sourceforge.net/projects/levent/files/release-${VERSION}/libevent-${VERSION}.tar.gz/download
 fi
 echo "Using libevent-${VERSION}.tar.gz"
 
@@ -22,7 +22,7 @@ if $VERIFYGPG; then
 	if [ ! -e "${SRCDIR}/libevent-${VERSION}.tar.gz.asc" ]; then
 		#curl -LO https://github.com/downloads/libevent/libevent/libevent-${VERSION}.tar.gz.asc
 
-		curl -LO https://sourceforge.net/projects/levent/files/libevent/libevent-2.0/libevent-${VERSION}.tar.gz.asc
+        curl -LO https://sourceforge.net/projects/levent/files/release-${VERSION}/libevent-${VERSION}.tar.gz.asc/download
 	fi
 	echo "Using libevent-${VERSION}.tar.gz.asc"
 	if out=$(gpg --status-fd 1 --verify "libevent-${VERSION}.tar.gz.asc" "libevent-${VERSION}.tar.gz" 2>/dev/null) &&
