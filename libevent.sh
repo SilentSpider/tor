@@ -56,6 +56,6 @@ make -j4
 
 # Distribute artefacts
 mkdir -p ../output/libevent
-mkdir ../output/libevent/include
+mkdir -p ../output/libevent/include
 cp ./.libs/*  ../output/libevent
 cp -r include/event2 ../output/libevent/include
