@@ -45,10 +45,6 @@ sed -i 's/pthread_condattr_setclock(&condattr, CLOCK_MONOTONIC)/0/g' src/common/
 export CFLAGS="$CFLAGS --sysroot=$SYSROOT -O2 -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2"
 export CPPFLAGS="$CPPFLAGS --sysroot=$SYSROOT -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2"
 
-# Remove curves causing errors
-# sed -ie "s/tor_cv_can_use_curve25519_donna_c64=cross/tor_cv_can_use_curve25519_donna_c64=no/g" configure
-# sed -ie "s/tor_cv_can_use_curve25519_donna_c64=yes/tor_cv_can_use_curve25519_donna_c64=no/g" configure
-
 # Configure build
 ./configure --with-openssl-dir="$OUTPUT/openssl/" \
 --with-libevent-dir="$OUTPUT/libevent" \
@@ -60,8 +56,9 @@ export LDFLAGS="$LDFLAGS -arch armv7 -lz -lcrypto -levent -lssl -L$OUTPUT/openss
 # Build tor
 make -j4
 
-# Distribute artefacts
+# Distribute artifacts
 mkdir -p ../../built
+rm -fr ../../built/*
 cp src/or/tor ../../built
 cp ../output/openssl/lib/libssl.so.1.0.0 ../../built
 cp ../output/openssl/lib/libcrypto.so.1.0.0 ../../built
