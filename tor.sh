@@ -44,14 +44,13 @@ sed -i 's/pthread_condattr_setclock(&condattr, CLOCK_MONOTONIC)/0/g' src/common/
 # Setup compile flags for makefile
 export CFLAGS="$CFLAGS --sysroot=$SYSROOT -O2 -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2"
 export CPPFLAGS="$CPPFLAGS --sysroot=$SYSROOT -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2"
+export LDFLAGS="$LDFLAGS -lz -lcrypto -levent -lssl -L$OUTPUT/openssl/lib -L$OUTPUT/libevent"
 
 # Configure build
 ./configure --with-openssl-dir="$OUTPUT/openssl/" \
 --with-libevent-dir="$OUTPUT/libevent" \
 --disable-asciidoc --disable-transparent \
 --host=arm-linux-androideabi --target=arm-linux-androideabi
-
-export LDFLAGS="$LDFLAGS -arch armv7 -lz -lcrypto -levent -lssl -L$OUTPUT/openssl/lib -L$OUTPUT/libevent"
 
 # Build tor
 make -j4
