@@ -46,8 +46,8 @@ export CFLAGS="$CFLAGS --sysroot=$SYSROOT -O2 -Isrc/common -I../output/openssl/i
 export CPPFLAGS="$CPPFLAGS --sysroot=$SYSROOT -Isrc/common -I../output/openssl/include -I$OUTPUT/libevent/include/event2"
 
 # Remove curves causing errors
-sed -ie "s/tor_cv_can_use_curve25519_donna_c64=cross/tor_cv_can_use_curve25519_donna_c64=no/g" configure
-sed -ie "s/tor_cv_can_use_curve25519_donna_c64=yes/tor_cv_can_use_curve25519_donna_c64=no/g" configure
+# sed -ie "s/tor_cv_can_use_curve25519_donna_c64=cross/tor_cv_can_use_curve25519_donna_c64=no/g" configure
+# sed -ie "s/tor_cv_can_use_curve25519_donna_c64=yes/tor_cv_can_use_curve25519_donna_c64=no/g" configure
 
 # Configure build
 ./configure --with-openssl-dir="$OUTPUT/openssl/" \
