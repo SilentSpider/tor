@@ -9,6 +9,7 @@ VERIFYGPG=true
 # Exit the script if an error happens
 set -e
 
+# Download and verify signatures to make sure we have the right source
 if [ ! -e "${SRCDIR}/openssl-${VERSION}.tar.gz" ]; then
 	echo "Downloading openssl-${VERSION}.tar.gz"
 	curl -O http://www.openssl.org/source/openssl-${VERSION}.tar.gz
@@ -32,10 +33,14 @@ if $VERIFYGPG; then
 	fi
 fi
 
+# Unpack archive
 tar zxf openssl-${VERSION}.tar.gz -C $SRCDIR
 cd "${SRCDIR}/openssl-${VERSION}"
 
+# Configure build
 ./config shared no-ssl2 no-ssl3 no-comp no-hw --openssldir=`pwd`/../output/openssl
+
+# Build
 make depend
 make all
 make install

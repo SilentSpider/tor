@@ -9,6 +9,7 @@ VERIFYGPG=true
 # Exit the script if an error happens
 set -e
 
+# Download and verify signatures to make sure we have the right source
 if [ ! -e "libevent-${VERSION}.tar.gz" ]; then
 	echo "Downloading libevent-${VERSION}.tar.gz"
 	#curl -LO https://github.com/downloads/libevent/libevent/libevent-${VERSION}.tar.gz
@@ -16,8 +17,6 @@ if [ ! -e "libevent-${VERSION}.tar.gz" ]; then
 fi
 echo "Using libevent-${VERSION}.tar.gz"
 
-# up to you to set up `gpg` and add keys to your keychain
-# may have to import from link on http://www.wangafu.net/~nickm/ or http://www.citi.umich.edu/u/provos/
 if $VERIFYGPG; then
 	if [ ! -e "${SRCDIR}/libevent-${VERSION}.tar.gz.asc" ]; then
 		#curl -LO https://github.com/downloads/libevent/libevent/libevent-${VERSION}.tar.gz.asc
@@ -40,17 +39,22 @@ tar zxf libevent-${VERSION}.tar.gz
 cd "libevent-${VERSION}"
 
 OUTPUT=`pwd`/../output
-export CFLAGS="$CFLAGS -I$OUTPUT/openssl/include -L$OUTPUT/openssl/lib -lssl -lcrypto"
 
+# Add include files for libevent makefile
+export CFLAGS="$CFLAGS -I$OUTPUT/openssl/include -L$OUTPUT/openssl/lib -lssl -lcrypto"
 export CC=arm-linux-androideabi-gcc
 export CFLAGS="$CFLAGS --sysroot=$SYSROOT"
 export CPPFLAGS="$CPPFLAGS --sysroot=$SYSROOT"
 
+# Configure build
 ./configure --disable-shared --enable-static --disable-debug-mode \
 LDFLAGS="$LDFLAGS" \
 --host=arm-linux-androideabi --target=arm-linux-androideabi
+
+# Build
 make -j4
 
+# Distribute artefacts
 mkdir -p ../output/libevent
 mkdir ../output/libevent/include
 cp ./.libs/*  ../output/libevent

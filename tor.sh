@@ -11,7 +11,7 @@ TOR_DIST_URL="https://dist.torproject.org/"
 # Break on build failures
 set -e
 
-# Verify signatures to make sure we have the right source
+# Download and verify signatures to make sure we have the right source
 if [ ! -e "tor-${VERSION}.tar.gz" ]; then
 	echo "Downloading tor-${VERSION}.tar.gz"
 	#curl -O https://archive.torproject.org/tor-package-archive/tor-${VERSION}.tar.gz

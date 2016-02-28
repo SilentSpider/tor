@@ -70,12 +70,8 @@ mkdir -p ${OUTPUTDIR}/include
 mkdir -p ${OUTPUTDIR}/lib
 BUILDDIR="${REPOROOT}/build"
 
-# where we will keep our sources and build from.
+# Where we will keep our sources and build from.
 SRCDIR="${BUILDDIR}/src"
 mkdir -p $SRCDIR
-
-# where we will store intermediary builds
-INTERDIR="${BUILDDIR}/built"
-mkdir -p $INTERDIR
 
 cd $SRCDIR
