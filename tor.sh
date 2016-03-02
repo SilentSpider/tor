@@ -61,3 +61,4 @@ rm -fr ../../built/*
 cp src/or/tor ../../built
 cp ../output/openssl/lib/libssl.so.1.0.0 ../../built
 cp ../output/openssl/lib/libcrypto.so.1.0.0 ../../built
+cp $REPOROOT/torrc ../../built
